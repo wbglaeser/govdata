@@ -2,55 +2,75 @@
     "root":"iati-activity",
     "fields": { 
         "iati-identifier": {
-            "type": "value"
+            "tag-value": 0,
+            "type": "value",
+            "value-element": {
+                "named": 0
+            }
         },
         "reporting-org": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 0,
                 "type": "dict",
                 "dict-element":{
+                    "named": 0,
                     "key": "{http://www.w3.org/XML/1998/namespace}lang",
                     "value-type": "text"
                 }
             }
         },
         "title": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 0,
                 "type": "dict",
                 "dict-element":{
+                    "named": 0,
                     "key": "{http://www.w3.org/XML/1998/namespace}lang",
                     "value-type": "text"
                 }
             }
         },
         "description": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 0,
                 "type": "dict",
                 "dict-element":{
+                    "named": 0,
                     "key": "{http://www.w3.org/XML/1998/namespace}lang",
                     "value-type": "text"
                 }
             }
         },
         "participating-org": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 0,
                 "type": "dict",
                 "dict-element":{
+                    "named": 0,
                     "key": "{http://www.w3.org/XML/1998/namespace}lang",
                     "value-type": "text"
                 }
             }
         },
         "other-identifier": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 0,
                 "type": "list",
                 "list-element": {
+                    "named": 1,
                     "type": "dict",
                     "dict-element":{
+                        "named": 0,
                         "key": "{http://www.w3.org/XML/1998/namespace}lang",
                         "value-type": "text"
                     }
@@ -58,163 +78,322 @@
             }
         },
         "activity-status": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type": "item",
                 "key": "code"
             }
         },
         "activity-date": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type": "multiple-items",
                 "keys": ["iso-date", "type"]
             }
         },
         "contact-info": {
+            "tag-value": 0,
             "type": "mixed-list",
             "mixed-list-element": [
                 {
                     "type": "list",
                     "list-element": {
-                        "type": "value"
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
                     }
                 },
                 {
-                    "type": "value"
+                    "type": "value",
+                    "value-element": {
+                        "named": 1
+                    }
+                },
+                {
+                    "type": "value",
+                    "value-element": {
+                        "named": 1
+                    }
+                },
+                {
+                    "type": "list",
+                    "list-element": {
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
+                    }
                 }
             ]
         },
         "activity-scope": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type": "item",
                 "key": "code"
             }
         },
         "recipient-country": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
-                "type": "value"
+                "named": 0,
+                "type": "value",
+                "value-element": {
+                    "named": 0
+                }
             }
         },
         "location": {
+            "tag-value": 0,
             "type": "mixed-list",
             "mixed-list-element": [
                 {
                     "type":"dict",
                     "dict-element": {
+                        "named": 1,
                         "value-type": "item",
                         "key": "code"
                     }
                 },
                 {
-                    "type":"list",
+                    "type":"dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
+                    }
+                },
+                {
+                    "type": "list",
                     "list-element": {
-                        "type": "value"
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
+                    }
+                },
+                {
+                    "type": "list",
+                    "list-element": {
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
+                    }
+                },
+                {
+                    "type": "list",
+                    "list-element": {
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
+                    }
+                },
+                {
+                    "type":"dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
+                    }
+                },
+                {
+                    "type": "list",
+                    "list-element": {
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 1
+                        }
+                    }
+                },
+                {
+                    "type":"dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
+                    }
+                },
+                {
+                    "type":"dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
+                    }
+                },
+                {
+                    "type":"dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
                     }
                 }
-            ]    
+            ]
         },
         "sector": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type":"multiple-items",
                 "keys": ["code", "percentage"]
             }
         },
         "policy-marker": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type":"multiple-items",
                 "keys": ["code", "significance"]
             }
         },
         "default-flow-type": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type":"item",
                 "key": "code"
             }
         },
         "default-tied-status": {
+            "tag-value": 0,
             "type": "dict",
             "dict-element": {
+                "named": 0,
                 "value-type":"item",
                 "key": "code"
             }
         },
         "budget": {
+            "tag-value": 0,
             "type": "mixed-list",
             "mixed-list-element": [
                 {
                     "type": "dict",
                     "dict-element": {
+                        "named": 0,
                         "value-type": "item",
                         "key": "iso-date"
                     }
                 },
                 {
-                    "type": "value"
+                    "type": "dict",
+                    "dict-element": {
+                        "named": 0,
+                        "value-type": "item",
+                        "key": "iso-date"
+                    }
+                },
+                {
+                    "type": "value",
+                    "value-element": {
+                        "named": 1
+                    }
                 }
             ]
         },
         "transaction": {
+            "tag-value": 0,
             "type": "mixed-list",
             "mixed-list-element": [ 
                 {
                     "type": "dict",
                     "dict-element": {
-                        "value-type": "item",
-                        "key": "iso-date"
-                    }
-                },
-                {
-                    "type": "dict",
-                    "dict-element": {
+                        "named": 1,
                         "value-type": "item",
                         "key": "code"
                     }
                 },
                 {
-                    "type": "value"
+                    "type": "dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "iso-date"
+                    }
+                },
+                {
+                    "type": "value",
+                    "value-element": {
+                        "named": 1
+                    }
                 }
             ]
         },
         "document-link": {
+            "tag-value": 1,
+            "tag-element": {
+                "key": "url"
+            },
             "type": "mixed-list",
-            "mixed-list-element": [ 
+            "mixed-list-element": [
                 {
                     "type": "list",
                     "list-element": {
-                        "type": "value"
+                        "named": 1,
+                        "type": "value",
+                        "value-element": {
+                            "named": 0
+                        }
                     }
                 },
                 {
                     "type": "dict",
                     "dict-element": {
-                        "value-type": "item",
-                        "key": "iso-date"
-                    }
-                },
-                {
-                    "type": "dict",
-                    "dict-element": {
+                        "named": 1,
                         "value-type": "item",
                         "key": "code"
                     }
                 },
                 {
-                    "type": "value"
+                    "type": "dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "code"
+                    }
+                },
+                {
+                    "type": "dict",
+                    "dict-element": {
+                        "named": 1,
+                        "value-type": "item",
+                        "key": "iso-date"
+                    }
                 }
             ]
         },
         "conditions": {
+            "tag-value": 0,
             "type": "list",
             "list-element": {
+                "named": 1,
                 "type": "list",
                 "list-element": {
-                    "type": "value"
+                    "named": 0,
+                    "type": "value",
+                    "value-element": {
+                        "named": 0
+                    }
                 }
             }
         }
