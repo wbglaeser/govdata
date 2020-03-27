@@ -6,34 +6,6 @@ import json
 filename = "../../data/projects_25032020.xml"
 json_filename = "../../data/projects_25032020.json"
 
-class Node:
-
-    name = ""
-    container = None
-
-    def __init__(self, name, container_type):
-        self.name = name
-
-        self._initialise_container(container_type)
-
-    def _initialise_container(self, container_type):
-        if container_type == "list":
-            self.container = []
-        elif container_type == "dict":
-            self.container = {}
-
-    @classmethod
-    def new(cls, name, container_type):
-        return cls(name, container_type)
-
-    def append_container(self, item):
-        assert isinstance(item, list), "Inadequate extension operation attempted"
-        self.container.append(item)
-
-    def update_container(self, item):
-        assert isinstance(item, dict), "Inadequate extension operation attempted"
-        self.container.udpate(item)
-
 class Parser:
     """ Class to parse XML node """
 
