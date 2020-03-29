@@ -14,11 +14,9 @@ class XmlParser:
 
         # load data
         self.tree = self._load_tree()
-        print(type(self.tree))
-
         self.datasheet = self._load_datasheet()
 
-    def _load_tree(self):
+    def _load_tree(self) -> ET.ElementTree:
         """ load and parse xml file """
 
         if not os.path.exists(self.file_name):
@@ -33,24 +31,19 @@ class XmlParser:
         data_sheet = file_name_trunk + ".json"
 
         if not os.path.exists(data_sheet):
-            raise (FileNotFoundError, f"Datasheet does not exist for: {file_name_trunk}")
+            raise FileNotFoundError(f"Datasheet does not exist for: {file_name_trunk}")
 
         with open(data_sheet) as f:
             data_sheet = json.load(f)
 
         return data_sheet
 
-    def _extract_record_list(self):
+    def _extract_record_list(self) -> list:
         """ from tree extract list of records """
 
         root = self.datasheet["root"]
 
         return [node for node in self.tree.iter(root)]
-
-    def save_records(self):
-        """ Save parsed set of records into json file """
-        with open("test_save.json", "w") as fp:
-            json.dump(self.records_all, fp, indent=4)
 
     def iterate_through_records(self) -> list:
         """ iterate through all xml records """
@@ -94,7 +87,7 @@ class XmlParser:
                 else: result = ""
 
             except (KeyError, IndexError) as e:
-                print(e)
+                #print(e)
                 result = ""
 
             if node_description["tag-value"] == 1:
@@ -229,7 +222,7 @@ class XmlParser:
         return kv_pair
 
     @classmethod
-    def parse(cls, file_name: str) -> list:
+    def pipe(cls, file_name: str) -> list:
         """ classmethod to provide more succinct access to parser """
 
         # initialise parser
