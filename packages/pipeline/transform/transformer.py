@@ -1,30 +1,30 @@
 """ transform data for later use """
 
-class Transformer:
+from packages.pipeline.basepipe.basepipe import BasePipe
 
-    IN_DIR = "extracted_input"
-    OUT_DIR = "production_input"
+class Transformer(BasePipe):
 
-    def __init__(self, directory, transformer):
+    def __init__(self, directory):
+        super().__init__()
 
-        self.transformer = transformer
-        self.directory = directory
+        self.input_dir = "extracted_input"
+        self.output_dir = "production_input"
+        self.input_filesheet = "file_sheet.json"
+        self.output_filesheet = "file_sheet.json"
+        self.project_directory = directory
 
         # verify file structure
         self._verify_file_structure()
 
-    def _verify_file_structure(self):
-        """ make sure necessary directories exist """
+    def pipe_data(self):
 
-        if not os.path.exists(self.directory):
-            raise FileNotFoundError(f"Provided data directory does not exist: {self.directory}")
+        file_list = self._load_file_list()
 
-        self.input_directory = os.path.join(self.directory, self.IN_DIR)
-        if not os.path.exists(self.input_directory):
-            raise FileNotFoundError(f"Provided data directory does not exist: {self.input_directory}")
+        for file in file_list:
+            print(file)
 
-        self.out_directory = os.path.join(self.directory, self.OUT_DIR)
-        if not os.path.exists(self.out_directory):
-            print("Target directory does not exist. Trying to create ...")
-
-    def _
+if __name__ == "__main__":
+    transformer = Transformer(
+        directory="data/bmz",
+    )
+    transformer.pipe_data()

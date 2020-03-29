@@ -18,6 +18,16 @@ class Extractor(BasePipe):
         # verify file structure
         self._verify_file_structure()
 
+    def pipe_data(self):
+        """ load and parse data before storing result in extracted data directory """
+
+        file_list = self._load_file_list()
+
+        for file in file_list:
+
+            records = self.engine.pipe(file)
+            self.store_data(records, file)
+
 if __name__ == "__main__":
     extractor = Extractor(
         directory="data/bmz",

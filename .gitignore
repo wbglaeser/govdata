@@ -130,5 +130,5 @@ dmypy.json
 
 # For now exclude xml datasets
 *.xml
-
+data/
 .idea/

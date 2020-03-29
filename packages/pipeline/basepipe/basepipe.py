@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import os
 import json
 
@@ -37,14 +37,6 @@ class BasePipe(ABC):
         self.__output_filesheet = output_filesheet
 
     @property
-    def engine(self):
-        return self.__engine
-
-    @engine.setter
-    def engine(self, engine):
-        self.__engine = engine
-
-    @property
     def project_directory(self):
         return self.__project_directory
 
@@ -58,7 +50,6 @@ class BasePipe(ABC):
         self.__output_dir = ""
         self.__input_filesheet = ""
         self.__output_filesheet = ""
-        self.__engine = ""
         self.__project_directory = ""
 
     def _verify_file_structure(self):
@@ -128,12 +119,6 @@ class BasePipe(ABC):
 
         self._update_filesheet(file_name_json)
 
+    @abstractmethod
     def pipe_data(self):
-        """ load and parse data before storing result in extracted data directory """
-
-        file_list = self._load_file_list()
-
-        for file in file_list:
-
-            records = self.engine.pipe(file)
-            self.store_data(records, file)
+        pass
