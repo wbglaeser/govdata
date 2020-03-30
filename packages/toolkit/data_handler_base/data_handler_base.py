@@ -1,56 +1,23 @@
-from abc import ABC, abstractmethod
 import os
 import json
 
-class BasePipe(ABC):
+import pandas as pd
 
-    @property
-    def input_dir(self):
-        return self.__input_dir
+class BaseDataHandler:
 
-    @input_dir.setter
-    def input_dir(self, input_dir):
-        self.__input_dir = input_dir
+    def __init__(self,
+                 input_dir: str,
+                 output_dir: str,
+                 input_filesheet: str,
+                 output_filesheet: str,
+                 project_directory: str):
 
-    @property
-    def output_dir(self):
-        return self.__output_dir
+        self.input_dir = input_dir
+        self.output_dir = output_dir
+        self.input_filesheet = input_filesheet
+        self.output_filesheet = output_filesheet
+        self.project_directory = project_directory
 
-    @output_dir.setter
-    def output_dir(self, output_dir):
-        self.__output_dir = output_dir
-
-    @property
-    def input_filesheet(self):
-        return self.__input_filesheet
-
-    @input_filesheet.setter
-    def input_filesheet(self, input_filesheet):
-        self.__input_filesheet = input_filesheet
-
-    @property
-    def output_filesheet(self):
-        return self.__output_filesheet
-
-    @output_filesheet.setter
-    def output_filesheet(self, output_filesheet):
-        self.__output_filesheet = output_filesheet
-
-    @property
-    def project_directory(self):
-        return self.__project_directory
-
-    @project_directory.setter
-    def project_directory(self, project_directory):
-        self.__project_directory = project_directory
-
-    def __init__(self):
-
-        self.__input_dir = ""
-        self.__output_dir = ""
-        self.__input_filesheet = ""
-        self.__output_filesheet = ""
-        self.__project_directory = ""
 
     def _verify_file_structure(self):
         """ make sure necessary directories exist """
@@ -66,11 +33,12 @@ class BasePipe(ABC):
         self.out_directory = os.path.join(self.project_directory, self.output_dir)
         if not os.path.exists(self.out_directory):
             print("Target directory does not exist. Trying to create ...")
+            os.makedirs(self.out_directory)
 
     def _load_file_list(self) -> list:
         """ extract list of files to be loaded """
 
-        file_sheet_path = os.path.join(self.input_directory, self.__input_filesheet)
+        file_sheet_path = os.path.join(self.input_directory, self.input_filesheet)
         if not os.path.exists(file_sheet_path):
             raise FileNotFoundError("File-sheet does not exist")
 
@@ -85,7 +53,7 @@ class BasePipe(ABC):
     def _update_filesheet(self, filename: str):
         """ update filesheet to reflect extracted files """
 
-        filesheet_path = os.path.join(self.out_directory, self.__output_filesheet)
+        filesheet_path = os.path.join(self.out_directory, self.output_filesheet)
         if not os.path.exists(filesheet_path):
             print("Filesheet for output data does not exist currently. Creating file... ")
 
@@ -102,23 +70,24 @@ class BasePipe(ABC):
         with open(filesheet_path, "w") as fp:
             json.dump(file_sheet, fp, indent=4)
 
-    def store_data(self, records: list, filename: str):
+    def store_data(self, records, filename: str):
         """ store extracted data in output directory """
+
+        assert type(records) in [list, pd.DataFrame], "File has unsupported type for saving."
 
         # prepare file name
         file_name_short = filename.split("/")[-1]
         file_name_trunk, _ = os.path.splitext(file_name_short)
-        file_name_json = file_name_trunk + ".json"
+        file_path = os.path.join(self.out_directory, file_name_trunk)
 
-        # full file path
-        file_name_full = os.path.join(self.out_directory, file_name_json)
+        if isinstance(records, list):
+            file_path_ext = file_path + ".json"
+            with open(file_path_ext, "w") as fp:
+                json.dump(records, fp, indent=4)
 
-        # store data
-        with open(file_name_full, "w") as fp:
-            json.dump(records, fp, indent=4)
+        elif isinstance(records, pd.DataFrame):
+            file_path_ext = file_path + ".csv"
+            records.to_csv(file_path_ext, sep=",", index=False)
 
-        self._update_filesheet(file_name_json)
+        self._update_filesheet(file_path_ext)
 
-    @abstractmethod
-    def pipe_data(self):
-        pass
