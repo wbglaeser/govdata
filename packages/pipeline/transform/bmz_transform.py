@@ -129,8 +129,8 @@ class BmzTransformer:
 
     @staticmethod
     def __extract_coordinates(rec: dict) -> tuple:
-        longitude = rec["location"][6]["point"][0]["pos"].split()[0]
-        latitude = rec["location"][6]["point"][0]["pos"].split()[1]
+        latitude = rec["location"][6]["point"][0]["pos"].split()[0]
+        longitude = rec["location"][6]["point"][0]["pos"].split()[1]
         return (longitude, latitude)
 
     @staticmethod

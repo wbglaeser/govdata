@@ -32,8 +32,7 @@ class BmzAnalyser(BaseDataHandler):
 
         return pd.read_csv(file_path)
 
-    @staticmethod
-    def filter_relevant_fields(df: pd.DataFrame) -> pd.DataFrame:
+    def filter_relevant_fields(self, df: pd.DataFrame) -> pd.DataFrame:
         """ select relevant data fields """
 
         # select relevant fields
@@ -50,7 +49,15 @@ class BmzAnalyser(BaseDataHandler):
         # drop unnecessary field
         df.drop(["location_coordinates"], axis=1, inplace=True)
 
+        # aggregate
+        df = self.aggregate_data(df)
+
         return df
+
+    @staticmethod
+    def aggregate_data(df: pd.DataFrame) -> pd.DataFrame:
+        """ aggregate budget data on coordinates """
+        return df.groupby(["latitude", "longitude"])["budget"].sum().reset_index()
 
     def run_analysis(self):
         """ run analysis pipeline """
@@ -60,10 +67,10 @@ class BmzAnalyser(BaseDataHandler):
         df_json = df.to_dict(orient="records")
         self.store_data(df_json, self.filename)
 
-
+        return df
 if __name__ == "__main__":
     loc = BmzAnalyser(
         directory="data/bmz",
         filename="projects_25032020.csv"
     )
-    loc.run_analysis()
+    df = loc.run_analysis()
