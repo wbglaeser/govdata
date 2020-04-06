@@ -36,7 +36,7 @@ class BmzAnalyser(BaseDataHandler):
         """ select relevant data fields """
 
         # select relevant fields
-        fields = ["identifier", "location_city", "location_coordinates", "budget"]
+        fields = ["identifier", "reporting_org", "recipient_country", "location_city", "location_coordinates", "budget"]
         df = df[fields]
 
         # setup regex
@@ -50,7 +50,7 @@ class BmzAnalyser(BaseDataHandler):
         df.drop(["location_coordinates"], axis=1, inplace=True)
 
         # aggregate
-        df = self.aggregate_data(df)
+        #df = self.aggregate_data(df)
 
         return df
 
