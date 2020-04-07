@@ -1,7 +1,9 @@
 """ Class to laad load raw input files """
 
 from packages.toolkit.data_handler_base.data_handler_base import BaseDataHandler
-from packages.pipeline.parser.parser import XmlParser
+from packages.pipeline.parser.xml_parser import XmlParser
+from packages.pipeline.parser.google_mob_parser import GoogleParser
+from packages.pipeline.parser.mpost_parser import MPostParser
 
 class Extractor(BaseDataHandler):
 
@@ -30,8 +32,8 @@ class Extractor(BaseDataHandler):
 
 if __name__ == "__main__":
     extractor = Extractor(
-        directory="data/bmz",
-        engine=XmlParser
+        directory="data/mpost",
+        engine=MPostParser
     )
     extractor.pipe_data()
 

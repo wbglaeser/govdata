@@ -63,8 +63,9 @@ class BaseDataHandler:
         with open(filesheet_path, "r") as fp:
             file_sheet = json.load(fp)
 
-        if filename not in file_sheet["files"]:
-            file_sheet["files"].append(filename)
+        filename_trunc = filename.split("/")[-1]
+        if filename_trunc not in file_sheet["files"]:
+            file_sheet["files"].append(filename_trunc )
 
         with open(filesheet_path, "w") as fp:
             json.dump(file_sheet, fp, indent=4)
