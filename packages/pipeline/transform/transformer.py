@@ -31,7 +31,7 @@ class Transformer(BaseDataHandler):
 
 if __name__ == "__main__":
     transformer = Transformer(
-        directory="data/mpost",
-        engine=MPostTransformer
+        directory="data/google",
+        engine=GoogleTransformer
     )
     transformer.pipe_data()

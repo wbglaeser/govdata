@@ -65,6 +65,18 @@ class GoogleTransformer:
         df["date"] = pd.to_datetime(df["date"], format="%Y%m%d", errors='coerce')
         return df
 
+    @staticmethod
+    def format_df(df: pd.DataFrame) -> pd.DataFrame:
+        """ Format dataframe """
+        rename_dict = {
+            "location": "state",
+            "category": "key",
+            "mob_score": "value"
+        }
+        df.rename(columns=rename_dict, inplace=True)
+
+        return df
+
     def transform_document(self) -> pd.DataFrame:
         """ Parse entire file """
 
@@ -72,6 +84,7 @@ class GoogleTransformer:
         df = self.filter_data(df)
         df = self.wide_to_long(df)
         df = self.parse_to_datetime(df)
+        df = self.format_df(df)
 
         return df
 
