@@ -20,6 +20,19 @@ Repository to screen through govdata.de data source for interesting data sources
 
 * Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=2&levelid=1586429677348&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=12613-0011&auswahltext=&werteabruf=Werteabruf#astructure)
 
+5) Erwerbstätige je industrie
+
+* Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=2&levelid=1586429840072&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=13111-0006&auswahltext=&werteabruf=Werteabruf#astructure)
+
+6) Preislevel
+
+* Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=2&levelid=1586430166133&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=61111-0011&auswahltext=&werteabruf=Werteabruf#astructure)
+
+7) Gebietsgröße
+
+* Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=2&levelid=1586431341379&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=11111-0001&auswahltext=&werteabruf=Werteabruf#astructure)
+
+
 ### Todo
 
 * Clean xml parser
