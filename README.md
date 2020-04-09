@@ -32,6 +32,11 @@ Repository to screen through govdata.de data source for interesting data sources
 
 * Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=2&levelid=1586431341379&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=11111-0001&auswahltext=&werteabruf=Werteabruf#astructure)
 
+8) Bevölkerungszahl, dichte 
+* Statistisches Bundesamt: [here](http://www.statistikportal.de/de/bevoelkerung/flaeche-und-bevoelkerung)
+
+9) Ärzte und Krankenhäuser
+* Statistisches Bundesamt: [here](https://www.statistikportal.de/de/gesundheit/aerzte-und-krankenhaeuser)
 
 ### Todo
 
