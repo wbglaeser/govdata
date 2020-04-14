@@ -1,12 +1,10 @@
-from collections import Counter
 import pandas as pd
-import json
 import os
 
 """ Class contains parser for xml data files. Input is xml data file and json file describing parsing scheme """
 
-class GoogleParser:
-    """ Class to parse XML node """
+class MPostExtractor:
+    """ Class to parse morgenpost data """
 
     def __init__(self, file_name):
         self.file_name = file_name
