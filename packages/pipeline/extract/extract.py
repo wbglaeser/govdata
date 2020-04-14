@@ -4,6 +4,7 @@ from packages.toolkit.data_handler_base.data_handler_base import BaseDataHandler
 from packages.pipeline.extract.xml_extractor import XmlExtractor
 from packages.pipeline.extract.google_mob_extractor import GoogleExtractor
 from packages.pipeline.extract.mpost_extractor import MPostExtractor
+from packages.pipeline.extract.demographics_extractor import DemographicsExtractor
 
 class Extractor(BaseDataHandler):
 
@@ -29,13 +30,14 @@ class Extractor(BaseDataHandler):
 
             records = self.engine.pipe(file)
             self.store_data(records, file)
+            return records
 
 if __name__ == "__main__":
     extractor = Extractor(
-        directory="data/CovidData/mpost",
-        engine=MPostExtractor
+        directory="data/CovidData/sbamt",
+        engine=DemographicsExtractor
     )
-    extractor.pipe_data()
+    rec = extractor.pipe_data()
 
 
 
