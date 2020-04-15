@@ -1,6 +1,7 @@
+import pandas as pd
 import os
 
-class SbamtTransformer:
+class SbamtExtractor:
     """ Class to extract and clean data from sbamt project data """
 
     def __init__(self, file_name):
@@ -11,7 +12,7 @@ class SbamtTransformer:
         """ load raw data file from """
 
         if not os.path.exists(self.file_name):
-        raise FileNotFoundError(f"File does not exist: {self.file_name}")
+            raise FileNotFoundError(f"File does not exist: {self.file_name}")
 
         _, ext = os.path.splitext(self.file_name)
         assert ext == ".txt", "Invalid filetype attempted to load"
@@ -27,12 +28,12 @@ class SbamtTransformer:
         tmp = to_be_replaced
 
         for old, new in replacement.items():
-            tmp = tmp.replace(char, new)
+            tmp = tmp.replace(old, new)
         
         return tmp
 
     @staticmethod
-    def format_data(file: str) -> pd.DataFrame:
+    def extract_data(file: str) -> pd.DataFrame:
         
         content = file.split('\n')
         
@@ -40,24 +41,22 @@ class SbamtTransformer:
                         ',':'',
                         '.':''}
         
-        content = [replace_chars(line, replacement) for line in content]
+        content = [SbamtExtractor.replace_chars(line, replacement) for line in content]
         content = [line.split('\t') for line in content ] 
         
-        return pd.DataFrame(mat[1:], columns=mat[0])
-
-    def transform_document(self) -> pd.DataFrame:
-        """ Parse entire file """
-
-        file = self.load_data()
-        df = self.format_data(file)
-
-        return df
+        return pd.DataFrame(content[1:], columns=content[0])
 
     @classmethod
     def pipe(cls, filename: str) -> pd.DataFrame:
         """ run entire transform pipeline """
 
-        transformer = cls(filename)
-        data = transformer.transform_document()
+        # initialise parser
+        extractor = cls(filename)
+        
+        # get records
+        raw_data = extractor.load_data()
+        
+        # extract relevant data
+        extracted_data = extractor.extract_data(raw_data)
 
-        return data
+        return extracted_data
