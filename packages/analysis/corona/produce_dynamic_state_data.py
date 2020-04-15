@@ -1,17 +1,16 @@
 import os
 import json
 
-import numpy as np
 import pandas as pd
 
 # set variable names
-GOOGLE_DIR = "data/google/production_input"
+GOOGLE_DIR = "data/CovidData/google/production_input"
 GOOGLE_FN = "international_local_area_trends_UK_DE_FR_ES_IT_US_SE.csv"
 
-MPOST_DIR = "data/mpost/production_input"
+MPOST_DIR = "data/CovidData/mpost/production_input"
 MPOST_FN = "history.v4.csv"
 
-MERGED_DIR = "data/corona/analysis_output"
+MERGED_DIR = "data/CovidData/corona/analysis_output"
 MERGED_FN = "merged_data"
 
 # load data

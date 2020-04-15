@@ -24,10 +24,6 @@ class DemographicsTransformer:
     def filter_data(df: pd.DataFrame) -> pd.DataFrame:
         """ Filter roughly """
 
-        # drop columns
-        drop_cols = ["date"]
-        df.drop(drop_cols, axis=1, inplace=True)
-
         return df
 
     @staticmethod
@@ -56,7 +52,7 @@ class DemographicsTransformer:
         # loop through states
         df_list = []
         for state in states:
-            excerpt = ["gender", "age_group", state]
+            excerpt = ["date", "gender", "age_group", state]
             _df = df[excerpt]
             _df["state"] = state
             _df.rename(columns={state:"value"}, inplace=True)
@@ -74,6 +70,7 @@ class DemographicsTransformer:
 
         # reorder columns
         new_order = [
+            "date",
             "state",
             "gender",
             "age_group",
