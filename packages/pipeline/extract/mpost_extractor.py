@@ -6,6 +6,8 @@ import os
 class MPostExtractor:
     """ Class to parse morgenpost data """
 
+    tag = "mpost"
+
     def __init__(self, file_name):
         self.file_name = file_name
 

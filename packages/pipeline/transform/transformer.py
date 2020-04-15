@@ -29,6 +29,6 @@ class Transformer(BaseDataHandler):
 
 if __name__ == "__main__":
     transformer = Transformer(
-        engine=DemographicsTransformer
+        engine=MPostTransformer
     )
     transformer.pipe_data()

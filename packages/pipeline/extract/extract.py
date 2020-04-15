@@ -31,7 +31,7 @@ class Extractor(BaseDataHandler):
 
 if __name__ == "__main__":
     extractor = Extractor(
-        engine=DemographicsExtractor
+        engine=MPostExtractor
     )
     rec = extractor.pipe_data()
 
