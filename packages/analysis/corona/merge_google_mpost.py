@@ -1,6 +1,7 @@
 import os
 import json
 
+import numpy as np
 import pandas as pd
 
 # set variable names
@@ -48,6 +49,12 @@ def merge_google_mpost(df_mpost: pd.DataFrame, df_google: pd.DataFrame) -> pd.Da
 
     return df_full
 
+def formatting(df: pd.DataFrame) -> pd.DataFrame:
+    """ Do some final formatting that will be necessary for website """
+
+    df.fillna(0, inplace=True)
+    return df
+
 def store_data(df: pd.DataFrame, dir: str, fname: str):
     """ Save data """
 
@@ -77,6 +84,14 @@ def store_json(df: pd.DataFrame, fpath: str):
     df["date"] = df["id"].apply(lambda x: x.split("_")[1])
     df.drop("id", axis=1, inplace=True)
     df_json = df.to_dict(orient="records")
+    print(type(df_json[0]))
+
+    for entry in df_json:
+        for (key, value) in entry.items():
+            if ~pd.notnull(value) == -1:
+                entry[key] = 0
+            else:
+                entry[key] = value
 
     fpath = fpath + ".json"
     with open(fpath, "w") as fp:
@@ -94,6 +109,9 @@ def run_merge() -> pd.DataFrame:
 
     # merge data
     df_full = merge_google_mpost(df_mpost, df_google)
+
+    # formatting
+    df_full = formatting(df_full)
 
     # store data
     store_data(df_full, MERGED_DIR, MERGED_FN)

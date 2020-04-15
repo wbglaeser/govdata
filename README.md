@@ -14,7 +14,7 @@ Repository to screen through govdata.de data source for interesting data sources
 
 3) Demographie
 
-* Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis/online?operation=abruftabelleBearbeiten&levelindex=1&levelid=1586429400971&auswahloperation=abruftabelleAuspraegungAuswaehlen&auswahlverzeichnis=ordnungsstruktur&auswahlziel=werteabruf&code=12111-0104&auswahltext=&werteabruf=Werteabruf#astructure)
+* Statistisches Bundesamt: [here](https://www-genesis.destatis.de/genesis//online?operation=table&code=12111-0104&levelindex=1&levelid=1586870525219)
 
 4) Sterbe Rate
 

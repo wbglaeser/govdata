@@ -5,7 +5,7 @@ import os
 
 """ Class contains parser for xml data files. Input is xml data file and json file describing parsing scheme """
 
-class XmlParser:
+class XmlExtractor:
     """ Class to parse XML node """
 
     def __init__(self, file_name):
