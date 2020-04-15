@@ -8,13 +8,10 @@ from packages.pipeline.transform.demographics_transform import DemographicsTrans
 
 class Transformer(BaseDataHandler):
 
-    def __init__(self, directory, engine):
+    def __init__(self, engine):
         super().__init__(
-            input_dir="extracted_input",
-            output_dir="production_input",
-            input_filesheet="file_sheet.json",
-            output_filesheet="file_sheet.json",
-            project_directory=directory
+            data_tag=engine.tag,
+            stage="transformation"
         )
 
         self.engine = engine
@@ -25,14 +22,13 @@ class Transformer(BaseDataHandler):
     def pipe_data(self):
 
         file_list = self._load_file_list()
-
+        print(file_list)
         for file in file_list:
             records = self.engine.pipe(file)
             self.store_data(records, file)
 
 if __name__ == "__main__":
     transformer = Transformer(
-        directory="data/CovidData/sbamt",
         engine=DemographicsTransformer
     )
     transformer.pipe_data()

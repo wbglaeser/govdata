@@ -5,6 +5,8 @@ import pandas as pd
 class DemographicsTransformer:
     """ Class to extract relevant data from demographics data """
 
+    tag = "demographics"
+
     def __init__(self, file_name):
 
         self.file_name = file_name
@@ -23,7 +25,6 @@ class DemographicsTransformer:
     @staticmethod
     def filter_data(df: pd.DataFrame) -> pd.DataFrame:
         """ Filter roughly """
-
         return df
 
     @staticmethod

@@ -8,13 +8,10 @@ from packages.pipeline.extract.demographics_extractor import DemographicsExtract
 
 class Extractor(BaseDataHandler):
 
-    def __init__(self, directory, engine):
+    def __init__(self, engine):
         super().__init__(
-            input_dir="raw_input",
-            output_dir="extracted_input",
-            input_filesheet="file_sheet.json",
-            output_filesheet="file_sheet.json",
-            project_directory=directory
+            data_tag=engine.tag,
+            stage="extraction"
         )
 
         self.engine = engine
@@ -34,7 +31,6 @@ class Extractor(BaseDataHandler):
 
 if __name__ == "__main__":
     extractor = Extractor(
-        directory="data/CovidData/sbamt",
         engine=DemographicsExtractor
     )
     rec = extractor.pipe_data()
