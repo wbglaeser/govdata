@@ -45,6 +45,4 @@ class DemographicsExtractor:
         # extract relevant data
         extracted_data = extractor.extract_demographics(extracted_data)
 
-        print(extracted_data.head(50))
-        print(extracted_data.shape)
         return extracted_data
