@@ -5,6 +5,8 @@ from packages.pipeline.transform.bmz_transform import BmzTransformer
 from packages.pipeline.transform.google_transform import GoogleTransformer
 from packages.pipeline.transform.mpost_transform import MPostTransformer
 from packages.pipeline.transform.demographics_transform import DemographicsTransformer
+from packages.pipeline.transform.states_population_transform import StatesPopulationTransformer
+from packages.pipeline.transform.medical_distribution_transform import MedicalDistributionTransformer 
 
 class Transformer(BaseDataHandler):
 
@@ -29,6 +31,6 @@ class Transformer(BaseDataHandler):
 
 if __name__ == "__main__":
     transformer = Transformer(
-        engine=MPostTransformer
+        engine=MedicalDistributionTransformer
     )
     transformer.pipe_data()
