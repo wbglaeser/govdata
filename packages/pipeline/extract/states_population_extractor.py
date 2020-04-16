@@ -1,8 +1,10 @@
 import pandas as pd
 import os
 
-class SbamtExtractor:
+class StatesPopulationExtractor:
     """ Class to extract and clean data from sbamt project data """
+
+    tag = "states_population"
 
     def __init__(self, file_name):
 
@@ -41,7 +43,7 @@ class SbamtExtractor:
                         ',':'',
                         '.':''}
         
-        content = [SbamtExtractor.replace_chars(line, replacement) for line in content]
+        content = [StatesPopulationExtractor.replace_chars(line, replacement) for line in content]
         content = [line.split('\t') for line in content ] 
         
         return pd.DataFrame(content[1:], columns=content[0])

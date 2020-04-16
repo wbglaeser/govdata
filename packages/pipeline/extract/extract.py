@@ -5,6 +5,8 @@ from packages.pipeline.extract.xml_extractor import XmlExtractor
 from packages.pipeline.extract.google_mob_extractor import GoogleExtractor
 from packages.pipeline.extract.mpost_extractor import MPostExtractor
 from packages.pipeline.extract.demographics_extractor import DemographicsExtractor
+from packages.pipeline.extract.states_population_extractor import StatesPopulationExtractor 
+from packages.pipeline.extract.medical_distribution_extractor import MedicalDistributionExtractor  
 
 class Extractor(BaseDataHandler):
 
@@ -31,7 +33,7 @@ class Extractor(BaseDataHandler):
 
 if __name__ == "__main__":
     extractor = Extractor(
-        engine=MPostExtractor
+        engine=MedicalDistributionExtractor
     )
     rec = extractor.pipe_data()
 
