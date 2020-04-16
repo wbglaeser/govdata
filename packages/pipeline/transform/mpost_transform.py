@@ -5,6 +5,8 @@ import pandas as pd
 class MPostTransformer:
     """ Class to extract relevant data from bmz project data """
 
+    tag = "mpost"
+
     def __init__(self, file_name):
 
         self.file_name = file_name

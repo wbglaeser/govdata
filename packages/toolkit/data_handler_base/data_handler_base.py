@@ -5,18 +5,43 @@ import pandas as pd
 
 class BaseDataHandler:
 
-    def __init__(self,
-                 input_dir: str,
-                 output_dir: str,
-                 input_filesheet: str,
-                 output_filesheet: str,
-                 project_directory: str):
+    DATASHEET_PATH = "data/CovidData/data_inventory.json"
 
-        self.input_dir = input_dir
-        self.output_dir = output_dir
-        self.input_filesheet = input_filesheet
-        self.output_filesheet = output_filesheet
-        self.project_directory = project_directory
+    def __init__(self,
+                 stage: str,
+                 data_tag: str):
+
+        assert stage in ["extraction", "transformation"]
+        self.stage = stage
+
+        self.data_tag = data_tag
+        self.__obtain_data_structure()
+
+    def __obtain_data_structure(self):
+        """ retrieve data structure from datasheet """
+
+        if not os.path.exists(self.DATASHEET_PATH):
+            raise FileNotFoundError("Data inventory does not exist.")
+
+        with open(self.DATASHEET_PATH, "r") as fp:
+            datasheet = json.load(fp)
+
+        data_dir = datasheet[self.data_tag]["directory"]
+        self.project_directory = os.path.join("data/CovidData", data_dir)
+
+        if self.stage == "extraction":
+
+            self.input_files = datasheet[self.data_tag]["raw_files"]
+            self.next_stage = "extracted_files"
+            self.input_dir = "raw_input"
+            self.output_dir = "extracted_input"
+
+        elif self.stage == "transformation":
+
+            self.input_files = datasheet[self.data_tag]["extracted_files"]
+            self.next_stage = "production_files"
+            self.input_dir = "extracted_input"
+            self.output_dir = "production_input"
 
     def _verify_file_structure(self):
         """ make sure necessary directories exist """
@@ -35,40 +60,28 @@ class BaseDataHandler:
             os.makedirs(self.out_directory_path)
 
     def _load_file_list(self) -> list:
-        """ extract list of files to be loaded """
+        """ return list of files for data pipe """
 
-        file_sheet_path = os.path.join(self.input_directory_path, self.input_filesheet)
-        if not os.path.exists(file_sheet_path):
-            raise FileNotFoundError("File-sheet does not exist")
+        if isinstance(self.input_files, list):
+            file_list = [os.path.join(self.input_directory_path, fname) for fname in self.input_files]
+        elif isinstance(self.input_files, str):
+            file_list = [os.path.join(self.input_directory_path, self.input_files)]
 
-        with open(file_sheet_path) as fp:
-            file_sheet = json.load(fp)
+        return file_list
 
-        file_list = file_sheet["files"]
-        file_list_full_path = [os.path.join(self.input_directory_path, fname) for fname in file_list]
+    def _update_data_inventory(self, filename: str):
+        """ update data inventory to reflect extracted files """
 
-        return file_list_full_path
+        if not os.path.exists(self.DATASHEET_PATH):
+            raise FileNotFoundError("Data inventory does not exist.")
 
-    def _update_filesheet(self, filename: str):
-        """ update filesheet to reflect extracted files """
+        with open(self.DATASHEET_PATH, "r") as fp:
+            datasheet = json.load(fp)
 
-        filesheet_path = os.path.join(self.out_directory_path, self.output_filesheet)
-        if not os.path.exists(filesheet_path):
-            print("Filesheet for output data does not exist currently. Creating file... ")
+        datasheet[self.data_tag][self.next_stage] = filename.split("/")[-1]
 
-            with open(filesheet_path, "w") as fp:
-                empty_file_list = {"files":[]}
-                json.dump(empty_file_list, fp, indent=4)
-
-        with open(filesheet_path, "r") as fp:
-            file_sheet = json.load(fp)
-
-        filename_trunc = filename.split("/")[-1]
-        if filename_trunc not in file_sheet["files"]:
-            file_sheet["files"].append(filename_trunc )
-
-        with open(filesheet_path, "w") as fp:
-            json.dump(file_sheet, fp, indent=4)
+        with open(self.DATASHEET_PATH, "w") as fp:
+            json.dump(datasheet, fp, indent=4)
 
     def store_data(self, records, filename: str):
         """ store extracted data in output directory """
@@ -89,5 +102,5 @@ class BaseDataHandler:
             file_path_ext = file_path + ".csv"
             records.to_csv(file_path_ext, sep=",", index=False)
 
-        self._update_filesheet(file_path_ext)
+        self._update_data_inventory(file_path_ext)
 

@@ -7,6 +7,8 @@ import pandas as pd
 class GoogleTransformer:
     """ Class to extract relevant data from bmz project data """
 
+    tag = "google"
+
     def __init__(self, file_name):
 
         self.file_name = file_name

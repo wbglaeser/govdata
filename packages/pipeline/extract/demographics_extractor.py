@@ -4,6 +4,8 @@ import os
 class DemographicsExtractor:
     """ Class to parse XML node """
 
+    tag = "demographics"
+
     def __init__(self, file_name):
         self.file_name = file_name
 
