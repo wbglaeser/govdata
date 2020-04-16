@@ -7,6 +7,10 @@ from packages.pipeline.extract.mpost_extractor import MPostExtractor
 from packages.pipeline.extract.demographics_extractor import DemographicsExtractor
 from packages.pipeline.extract.states_population_extractor import StatesPopulationExtractor 
 from packages.pipeline.extract.medical_distribution_extractor import MedicalDistributionExtractor  
+from packages.pipeline.extract.iddw.total_unemployed_extractor import TotalUnemployedExtractor
+from packages.pipeline.extract.iddw.total_employed_extractor import TotalEmployedExtractor
+from packages.pipeline.extract.iddw.inhabitant_income_extractor import InhabitantIncomeExtractor
+from packages.pipeline.extract.iddw.death_cases_extractor import DeathCasesExtractor
 
 class Extractor(BaseDataHandler):
 
@@ -33,7 +37,7 @@ class Extractor(BaseDataHandler):
 
 if __name__ == "__main__":
     extractor = Extractor(
-        engine=MedicalDistributionExtractor
+        engine=DeathCasesExtractor
     )
     rec = extractor.pipe_data()
 

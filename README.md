@@ -38,6 +38,21 @@ Repository to screen through govdata.de data source for interesting data sources
 9) Ärzte und Krankenhäuser
 * Statistisches Bundesamt: [here](https://www.statistikportal.de/de/gesundheit/aerzte-und-krankenhaeuser)
 
+10) Haushaltseinkommen je Einwohner
+* Institut der deutschen Wirtschaft: [here](https://www.deutschlandinzahlen.de/tab/bundeslaender/finanzen/einkommen-verdienste/haushaltseinkommen-je-einwohner)
+
+11) Sterbefälle - Anzahl
+* Institut der deutschen Wirtschaft: [here](https://www.deutschlandinzahlen.de/tab/bundeslaender/demografie/natuerliche-bevoelkerungsbewegungen/sterbefaelle)
+
+12) Arbeitslose insgesamt - in 1.000
+* Institut der deutschen Wirtschaft: [here](https://www.deutschlandinzahlen.de/tab/bundeslaender/arbeitsmarkt/arbeitslosigkeit/arbeitslose-insgesamt)
+
+13) Erwerbstätige insgesamt - in 1.000
+* Institut der deutschen Wirtschaft: [here](https://www.deutschlandinzahlen.de/tab/bundeslaender/arbeitsmarkt/erwerbstaetigkeit/erwerbstaetige-insgesamt)
+
+14) Länder maßnahmen
+* Deutsche Turismusverband: [here](https://www.deutschertourismusverband.de/service/coronavirus/uebersicht-zu-behoerdlichen-massnahmen.html)
+
 ### Todo
 
 * Clean xml parser

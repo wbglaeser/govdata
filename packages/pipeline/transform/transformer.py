@@ -7,6 +7,10 @@ from packages.pipeline.transform.mpost_transform import MPostTransformer
 from packages.pipeline.transform.demographics_transform import DemographicsTransformer
 from packages.pipeline.transform.states_population_transform import StatesPopulationTransformer
 from packages.pipeline.transform.medical_distribution_transform import MedicalDistributionTransformer 
+from packages.pipeline.transform.iddw.total_unemployed_transform import TotalUnemployedTransformer
+from packages.pipeline.transform.iddw.total_employed_transform import TotalEmployedTransformer
+from packages.pipeline.transform.iddw.inhabitant_income_transform import InhabitantIncomeTransformer
+from packages.pipeline.transform.iddw.death_cases_transform import DeathCasesTransformer
 
 class Transformer(BaseDataHandler):
 
@@ -31,6 +35,6 @@ class Transformer(BaseDataHandler):
 
 if __name__ == "__main__":
     transformer = Transformer(
-        engine=MedicalDistributionTransformer
+        engine=DeathCasesTransformer
     )
     transformer.pipe_data()
