@@ -6,6 +6,14 @@ import pandas as pd
 # set variable names
 DEMOGRAPHICS_DIR = "data/CovidData/sbamt/production_input"
 DEMOGRAPHICS_FN = "demographics.csv"
+POPULATIONS_FN = "states_population.csv"
+MEDICAL_FN = "medical_distribution.csv"
+
+INHABITANT_STATISTIC_DIR = "data/CovidData/iddw/production_input"
+DEATHS_FN = "death_cases.csv"
+INCOME_FN = "inhabitant_income.csv"
+EMPLOYRD_FN = "total_employed.csv"
+UNEMPLOYRD_FN = "total_unemployed.csv"
 
 MERGED_DIR = "data/CovidData/corona/analysis_output"
 MERGED_FN = "states_static"
@@ -43,6 +51,69 @@ def reshape_demo(df: pd.DataFrame) -> pd.DataFrame:
     df.reset_index(inplace=True)
 
     return df
+
+def validate_state_order(origin: pd.Series, mergie: pd.Series):
+    if not (origin == mergie).all():
+        raise Exception("state oder is incompatible")
+
+def merge_state_population(origin: pd.DataFrame, population: pd.DataFrame) -> pd.DataFrame:
+    
+    population = population[population.state != 'Deutschland']
+    validate_state_order(origin['state'], population['state'])
+
+    new_df = origin.assign(territory_size=population['area'],
+                           person_per_km_square=population['per_km_square'])
+
+    return new_df
+
+def merge_medical(origin: pd.DataFrame, medical: pd.DataFrame) -> pd.DataFrame:
+    
+    medical = medical[medical.state != 'Deutschland']
+    validate_state_order(origin['state'], medical['state'])
+
+    new_df = origin.assign(physicians=medical['physicians'],
+                           dentists=medical['dentists'],
+                           hospitals=medical['hospitals'],
+                           beds=medical['beds'])
+
+    return new_df
+
+def merge_deaths(origin: pd.DataFrame, deaths: pd.DataFrame, year: str) -> pd.DataFrame:
+
+    deaths = deaths[deaths.Bundesland != 'Deutschland']
+    validate_state_order(origin['state'], deaths['Bundesland'])
+
+    new_df = origin.assign(deaths=deaths[year])
+
+    return new_df
+
+def merge_income(origin: pd.DataFrame, income: pd.DataFrame, year: str) -> pd.DataFrame:
+
+    income = income[income.Bundesland != 'Deutschland']
+    validate_state_order(origin['state'], income['Bundesland'])
+
+    new_df = origin.assign(income=income[year])
+
+    return new_df
+
+def merge_employed(origin: pd.DataFrame, employed: pd.DataFrame, year: str) -> pd.DataFrame:
+
+    employed = employed[employed.Bundesland != 'Deutschland']
+    validate_state_order(origin['state'], employed['Bundesland'])
+
+    new_df = origin.assign(employed=employed[year])
+
+    return new_df
+
+def merge_unemployed(origin: pd.DataFrame, unemployed: pd.DataFrame, year: str) -> pd.DataFrame:
+
+    unemployed = unemployed[unemployed.Bundesland != 'Deutschland']
+    validate_state_order(origin['state'], unemployed['Bundesland'])
+
+    new_df = origin.assign(unemployed=unemployed[year])
+
+    return new_df
+
 
 def store_data(df: pd.DataFrame, dir: str, fname: str):
     """ Save data """
@@ -87,9 +158,23 @@ def run_merge() -> pd.DataFrame:
     df_demo = load_file(DEMOGRAPHICS_DIR, DEMOGRAPHICS_FN)
     df_demo = prep_demo(df_demo)
 
-    store_data(df_demo, MERGED_DIR, MERGED_FN)
+    population = load_file(DEMOGRAPHICS_DIR, POPULATIONS_FN)
+    medical = load_file(DEMOGRAPHICS_DIR, MEDICAL_FN)
+    deaths = load_file(INHABITANT_STATISTIC_DIR, DEATHS_FN)
+    income = load_file(INHABITANT_STATISTIC_DIR, INCOME_FN)
+    employed = load_file(INHABITANT_STATISTIC_DIR, EMPLOYRD_FN)
+    unemployed = load_file(INHABITANT_STATISTIC_DIR, UNEMPLOYRD_FN)
 
-    return df_demo
+    df = merge_state_population(df_demo, population)
+    df = merge_medical(df, medical)
+    df = merge_deaths(df, deaths, "2018")
+    df = merge_income(df, income, "2017")
+    df = merge_employed(df, employed, "2018")
+    df = merge_unemployed(df, unemployed, "2018")
+
+    store_data(df, MERGED_DIR, MERGED_FN)
+
+    return df
 
 if __name__ == "__main__":
     df = run_merge()
